@@ -1,0 +1,9 @@
+<header></header>
+<div class="container">
+  <ng-container *ngIf="showLogin">
+    <app-login (register)="switchToRegister()"></app-login>
+  </ng-container>
+  <ng-container *ngIf="showRegister">
+    <app-register (login)="switchToLogin()"></app-register>
+  </ng-container>
+</div>

@@ -1,0 +1,27 @@
+.utility-btns {
+  width: 100px;
+}
+
+.search-box {
+  .search-heading {
+    margin: 0;
+    line-height: 32px;
+    font-size: 18px;
+  }
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    padding: 0;
+    height: 15px;
+    width: 15px;
+    margin-left: 16px;
+  }
+}
+
+.inactive {
+    color: grey;
+}

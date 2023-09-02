@@ -1,0 +1,151 @@
+<header></header>
+
+<div class="container">
+  <h1>Task List</h1>
+
+  <div class="row search-box">
+    <div class="col-md-6 col-lg-4">
+      <div class="search-div input-group mb-3">
+        <input
+          type="text"
+          [(ngModel)]="search"
+          (change)="getAllTasks()"
+          class="form-control"
+          aria-label="Search"
+          placeholder="Search"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="add-div">
+    <button (click)="addTask()" class="btn btn-outline-primary utility-btns">
+      Add
+    </button>
+  </div>
+
+  <div class="tasks-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">
+            <div class="d-flex align-items-end">
+              Name
+              <div class="buttons-container">
+                <button
+                  (click)="updateFilters('taskName', 'ascending')"
+                  class="btn border-0"
+                  [ngClass]="
+                    sortBy == 'taskName' && order == 'ascending'
+                      ? ''
+                      : 'inactive'
+                  "
+                >
+                  <fa-icon [icon]="faCaretUp"></fa-icon>
+                </button>
+                <button
+                  (click)="updateFilters('taskName', 'descending')"
+                  class="btn border-0"
+                  [ngClass]="
+                    sortBy == 'taskName' && order == 'descending'
+                      ? ''
+                      : 'inactive'
+                  "
+                >
+                  <fa-icon [icon]="faCaretDown"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="d-flex align-items-end">
+              Status
+              <div class="buttons-container">
+                <button
+                  (click)="updateFilters('taskStatus', 'ascending')"
+                  class="btn border-0"
+                  [ngClass]="
+                    sortBy == 'taskStatus' && order == 'ascending'
+                      ? ''
+                      : 'inactive'
+                  "
+                >
+                  <fa-icon [icon]="faCaretUp"></fa-icon>
+                </button>
+                <button
+                  (click)="updateFilters('taskStatus', 'descending')"
+                  class="btn border-0"
+                  [ngClass]="
+                    sortBy == 'taskStatus' && order == 'descending'
+                      ? ''
+                      : 'inactive'
+                  "
+                >
+                  <fa-icon [icon]="faCaretDown"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th scope="col">Type</th>
+          <th scope="col">Date</th>
+          <th scope="col">ID</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tasks; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ item.taskName }}</td>
+          <td>{{ item.taskStatus }}</td>
+          <td>{{ item.taskType }}</td>
+          <td>{{ item.taskDate }}</td>
+          <td>{{ item.id }}</td>
+          <td>
+            <button (click)="deleteTask(item.id)" class="btn btn-danger me-2">
+              Delete
+            </button>
+            <button (click)="editTask(item)" class="btn btn-warning">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <nav>
+      <ul class="pagination d-flex justify-content-center">
+        <li class="page-item">
+          <select
+            (change)="changePageSize($event)"
+            class="form-control"
+            name="pageSize"
+            id=""
+          >
+            <option selected [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="15">15</option>
+          </select>
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            [ngClass]="pageNumber == 1 ? 'disabled' : ''"
+            (click)="paginate('backward')"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            (click)="paginate('forward')"
+            [ngClass]="disableForward ? 'disabled' : ''"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
