@@ -27,12 +27,13 @@ export class LoginComponent extends BasePage implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit() {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-      this.userService.login(this.loginForm.value);
-      this.utility.presentSuccessAlert('Successly Logged In', false);
-      this.router.navigate(['main']);
+    if (!this.loginForm.valid) {
+      return this.utility.presentFailureAlert('Please fill all the required details');
     }
+
+    await this.userService.login(this.loginForm.value);
+    this.utility.presentSuccessAlert('Successly Logged In', false);
+    this.router.navigate(['main']);
   }
 
   // Method to switch to the regsiter page

@@ -24,9 +24,11 @@ export class RegisterComponent extends BasePage {
 
   async onSubmit() {
     if (this.registerForm.valid) {
-      const res= await this.userService.register(this.registerForm.value);
-      this.utility.presentSuccessAlert('Successly Registered In', false);
-      this.switchToLogin();
+      const res = await this.userService.register(this.registerForm.value);
+      if (res) {
+        this.utility.presentSuccessAlert('Successly Registered In', false);
+        this.switchToLogin();
+      }
     }
   }
 

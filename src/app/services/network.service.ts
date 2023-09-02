@@ -172,6 +172,10 @@ export class NetworkService {
           reject(err.error);
         }
       );
-    }).catch((err) => {});
+    }).catch((err) => {
+      if (err.status == 'Error') {
+        this.utility.presentFailureAlert(err.message);
+      }
+    });
   }
 }

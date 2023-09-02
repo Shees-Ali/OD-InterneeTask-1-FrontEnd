@@ -58,13 +58,14 @@ export class ChatbotPage extends BasePage implements OnInit {
 
   ngOnDestroy() {
     if (this.messages.length > 0) {
-      console.log(this.userService.user);
-      const obj = {
-        user_id: this.userService.user.id,
-        chat: this.messages,
-      };
-      const string = JSON.stringify(obj);
-      localStorage.setItem('user_chat', string);
+      if (this.userService.user) {
+        const obj = {
+          user_id: this.userService.user.id,
+          chat: this.messages,
+        };
+        const string = JSON.stringify(obj);
+        localStorage.setItem('user_chat', string);
+      }
     }
   }
 }
