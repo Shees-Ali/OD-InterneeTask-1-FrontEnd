@@ -17,19 +17,14 @@ export class HeaderComponent extends BasePage implements OnInit {
   }
 
   async getUser() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token == null) {
       return;
     }
-    const res = await this.network.getCurrentUser();
-    console.log(res);
-    if (res?.user) {
-      this.user = res.user;
-    }
+    this.user = await this.userService.getCurrentUser();
   }
 
   logout() {
-    this.router.navigate(['authentication']);
-    localStorage.removeItem('token');
+    this.userService.logout();
   }
 }

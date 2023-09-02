@@ -3,13 +3,13 @@
 <div class="container">
   <h1>Chatbot</h1>
   <div class="chatbox">
-    <div class="messages">
+    <div #messagesContainer class="messages">
       <div class="message" *ngFor="let message of messages">
-        <ng-container *ngIf="message.type === 'user'">
-          <div class="user-message">{{ message.text }}</div>
+        <ng-container *ngIf="message.role === 'User'">
+          <div class="user-message">{{ message.message }}</div>
         </ng-container>
-        <ng-container *ngIf="message.type === 'bot'">
-          <div class="bot-message">{{ message.text }}</div>
+        <ng-container *ngIf="message.role === 'System'">
+          <div class="bot-message">{{ message.message }}</div>
         </ng-container>
       </div>
     </div>

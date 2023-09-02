@@ -49,7 +49,6 @@ export class MainComponent extends BasePage implements OnInit {
       return;
     }
     this.tasks = tasks.data;
-    console.log(this.tasks);
   }
 
   // Function for updating Filters for Task List

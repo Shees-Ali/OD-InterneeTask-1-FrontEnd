@@ -29,9 +29,7 @@ export class LoginComponent extends BasePage implements OnInit {
   async onSubmit() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
-      const res = await this.network.login(this.loginForm.value);
-      console.log(res);
-      localStorage.setItem('token', res.token);
+      this.userService.login(this.loginForm.value);
       this.utility.presentSuccessAlert('Successly Logged In', false);
       this.router.navigate(['main']);
     }

@@ -24,10 +24,7 @@ export class RegisterComponent extends BasePage {
 
   async onSubmit() {
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-      const res = await this.network.register(this.registerForm.value);
-      console.log(res);
-      // localStorage.setItem('token', res.token);
+      const res= await this.userService.register(this.registerForm.value);
       this.utility.presentSuccessAlert('Successly Registered In', false);
       this.switchToLogin();
     }

@@ -55,6 +55,11 @@ export class NetworkService {
     return this.httpGetResponse('auth/get-current-user');
   }
 
+  // Network calls for ChatBot
+  chat(messages: any) {
+    return this.httpPostResponse('chat/conversation', messages);
+  }
+
   // Function for making url string from object of url params.
   serialize = (obj: any) => {
     const str: any[] = [];
