@@ -5,20 +5,20 @@
     <ul class="nav justify-content-end">
       <ng-container *ngIf="user">
         <li class="nav-item">
-          <a [routerLink]="'/main'" class="nav-link" [routerLinkActive]="['active']">{{
+          <a [routerLink]="'/main'" class="nav-link  text-white" [routerLinkActive]="['active']">{{
             user.userName
             }}</a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="'/chatbot'" class="nav-link" [routerLinkActive]="['active']">Chatbot</a>
+          <a [routerLink]="'/chatbot'" class="nav-link  text-white" [routerLinkActive]="['active']">Chatbot</a>
         </li>
         <li>
-          <a (click)="logout()" class="nav-link">Log Out</a>
+          <a (click)="logout()" class="nav-link  text-white">Log Out</a>
         </li>
       </ng-container>
       <ng-container *ngIf="!user">
         <li class="nav-item">
-          <a [routerLink]="'/authentication'" [routerLinkActive]="['active']" class="nav-link">Log In</a>
+          <a [routerLink]="'/authentication'" [routerLinkActive]="['active']" class="nav-link  text-white">Log In</a>
         </li>
       </ng-container>
     </ul>
