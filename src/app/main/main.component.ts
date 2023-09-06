@@ -40,7 +40,7 @@ export class MainComponent extends BasePage implements OnInit {
       pageSize: this.pageSize,
     };
     const tasks = await this.network.getTasksList(params);
-    if (tasks.length < this.pageSize) {
+    if ((tasks.data.length < this.pageSize) || tasks.totalCount == this.pageSize) {
       this.disableForward = true;
     } else {
       this.disableForward = false;
@@ -73,11 +73,12 @@ export class MainComponent extends BasePage implements OnInit {
     });
     modalRef.result
       .then((res) => {
+        console.log(res);
         if (res.task_id) {
           this.getAllTasks();
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
 
   // Opens edit task modal
@@ -93,7 +94,7 @@ export class MainComponent extends BasePage implements OnInit {
           this.getAllTasks();
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
 
   // Deletes Task and asks for confirmation

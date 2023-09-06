@@ -56,7 +56,7 @@ export class AddTaskComponent extends BasePage implements OnInit {
       console.log(res);
       if (res && res.data) {
         this.activeModal.close({
-          task_id: res.id,
+          task_id: res.data,
         });
         this.utility.presentSuccessAlert('Successfully Added Task !');
       }
