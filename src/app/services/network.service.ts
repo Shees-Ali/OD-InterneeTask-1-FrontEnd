@@ -175,6 +175,9 @@ export class NetworkService {
     }).catch((err) => {
       if (err.status == 'Error') {
         this.utility.presentFailureAlert(err.message);
+        if (err.message == 'User Not Logged In!') {
+          this.router.navigate(['']);
+        }
       }
     });
   }
