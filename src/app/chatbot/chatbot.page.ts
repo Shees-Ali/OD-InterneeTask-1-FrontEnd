@@ -27,6 +27,10 @@ export class ChatbotPage extends BasePage implements OnInit {
   }
 
   async initBot() {
+    // const _res = await this.network.QNAChat("''");
+    // console.log(_res);
+
+
     const string = localStorage.getItem('user_chat');
     if (string) {
       const _messages = JSON.parse(string);

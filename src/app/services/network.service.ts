@@ -60,6 +60,10 @@ export class NetworkService {
     return this.httpPostResponse('chat/conversation', messages);
   }
 
+  QNAChat(message: string) {
+    return this.httpGetResponse('chat/start?question=' + message);
+  }
+
   // Function for making url string from object of url params.
   serialize = (obj: any) => {
     const str: any[] = [];
