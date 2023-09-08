@@ -5,9 +5,15 @@ import { LoaderComponent } from './loader/loader.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
-  declarations: [LoaderComponent, AddTaskComponent, HeaderComponent],
+  declarations: [
+    LoaderComponent,
+    AddTaskComponent,
+    HeaderComponent,
+    TaskDetailsComponent,
+  ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [LoaderComponent, HeaderComponent],
 })
