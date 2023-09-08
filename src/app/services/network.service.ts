@@ -66,7 +66,7 @@ export class NetworkService {
   }
 
   getTags(description: string) {
-    return this.httpGetResponse('ai/getTags?description=' + description);
+    return this.httpGetResponse('ai/getTags?description=' + description, null, false);
   }
 
   // Function for making url string from object of url params.

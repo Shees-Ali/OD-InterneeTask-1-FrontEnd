@@ -47,8 +47,20 @@ export class AddTaskComponent extends BasePage implements OnInit {
 
   // Function for getting the tags for description and populating them
   async getTagsforDescription(description: string) {
+    this.isInProcess = true;
     const res = await this.network.getTags(description);
-    console.log(res);
+    if (res.enitityRecognitionResult?.hasValue) {
+      const tags = res.enitityRecognitionResult?.value;
+      console.log(tags);
+      if (tags.length > 0) {
+        tags.forEach((element: any) => {
+          let value = this.addTaskForm.controls['taskTags'].value;
+          value += element.text + ', ';
+          this.addTaskForm.controls['taskTags'].setValue(value);
+        });
+      }
+    }
+    this.isInProcess = false;
   }
 
   // Function that calls the API for adding or editing a task and displays appropriate Messages.
