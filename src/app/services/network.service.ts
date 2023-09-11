@@ -55,9 +55,18 @@ export class NetworkService {
     return this.httpGetResponse('auth/get-current-user');
   }
 
-  // Network calls for ChatBot
+  // Network calls related to AI
+
   chat(messages: any) {
-    return this.httpPostResponse('chat/conversation', messages);
+    return this.httpPostResponse('ai/conversation', messages);
+  }
+
+  summarize(description: string) {
+    return this.httpGetResponse('ai/summarize?description=' + description);
+  }
+
+  getTags(description: string) {
+    return this.httpGetResponse('ai/getTags?description=' + description, null, false);
   }
 
   QNAChat(message: string) {

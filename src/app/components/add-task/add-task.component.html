@@ -28,12 +28,19 @@
     <div class="mb-3">
       <label for="taskDescription">Task Description</label>
       <div class="input-group">
-        <input
+        <textarea
+          rows="4"
+          (change)="onDescriptionUpdate($event)"
           class="form-control"
           formControlName="taskDescription"
           type="text"
           placeholder="Enter Task Description"
-        />
+        ></textarea>
+      </div>
+      <div class="row">
+        <div class="col-12 text-end">
+          {{ addTaskForm.controls["taskDescription"].value.length }}
+        </div>
       </div>
     </div>
 
@@ -83,5 +90,12 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-success" (click)="save()">Save</button>
+  <button
+    [disabled]="isInProcess"
+    type="button"
+    class="btn btn-success"
+    (click)="save()"
+  >
+    Save
+  </button>
 </div>

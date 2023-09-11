@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BasePage } from '../base/base';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { AddTaskComponent } from '../components/add-task/add-task.component';
+import { TaskDetailsComponent } from '../components/task-details/task-details.component';
 
 @Component({
   selector: 'app-main',
@@ -40,7 +41,10 @@ export class MainComponent extends BasePage implements OnInit {
       pageSize: this.pageSize,
     };
     const tasks = await this.network.getTasksList(params);
-    if ((tasks.data.length < this.pageSize) || tasks.totalCount == this.pageSize) {
+    if (
+      tasks.data.length < this.pageSize ||
+      tasks.totalCount == this.pageSize
+    ) {
       this.disableForward = true;
     } else {
       this.disableForward = false;
@@ -78,7 +82,7 @@ export class MainComponent extends BasePage implements OnInit {
           this.getAllTasks();
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   }
 
   // Opens edit task modal
@@ -94,7 +98,23 @@ export class MainComponent extends BasePage implements OnInit {
           this.getAllTasks();
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
+  }
+
+  // Opens task details modal
+  viewTask(task: any) {
+    const modalRef = this.modalService.open(TaskDetailsComponent, {
+      centered: true,
+      backdrop: 'static',
+    });
+    modalRef.componentInstance.task_id = task.id;
+    modalRef.result
+      .then((res) => {
+        if (res.task_id) {
+          this.getAllTasks();
+        }
+      })
+      .catch((err) => {});
   }
 
   // Deletes Task and asks for confirmation

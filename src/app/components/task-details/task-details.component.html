@@ -1,0 +1,60 @@
+<!--
+  Modal for Adding a new Task Entry or Editing an Existing Entry.
+-->
+
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-basic-title">Task Detail</h3>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="dismiss()"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <div class="card" *ngIf="!isInProcess">
+    <div class="card-header">
+      <h3>{{ task.taskName }}</h3>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Author:</strong> {{ task.user?.userName }}
+      </p>
+      <p class="card-text"><strong>Category:</strong> {{ task.taskType }}</p>
+      <p class="card-text"><strong>Status:</strong> {{ task.taskStatus }}</p>
+      <p class="card-text">
+        <strong>Completed:</strong> {{ task.taskCompleted ? "Yes" : "No" }}
+      </p>
+      <p class="card-text">
+        <strong>Created At:</strong> {{ task.createdAt | date }}
+      </p>
+      <p class="card-text"><strong>Tags:</strong> {{ task.taskTags }}</p>
+      <p class="card-text">
+        <strong>Description:</strong>
+      </p>
+      <div *ngIf="!showSummary">
+        {{ task.taskDescription }}
+        <button
+          *ngIf="task.taskDescription.length > 100"
+          class="btn btn-link"
+          (click)="toggleSummary()"
+        >
+          Summarize using AI
+        </button>
+      </div>
+      <div *ngIf="showSummary">
+        {{ summarizedDescription }}...
+        <button class="btn btn-link" (click)="toggleSummary()">
+          Show More
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="dismiss()">
+    Close
+  </button>
+</div>

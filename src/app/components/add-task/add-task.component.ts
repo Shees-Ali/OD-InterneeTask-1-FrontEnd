@@ -15,7 +15,8 @@ export class AddTaskComponent extends BasePage implements OnInit {
   @Input() task: any;
   // Task ID set in ngOnInit for use when updating.
   taskID: any;
-
+  // Disable save button when this is true
+  isInProcess: boolean = false;
   constructor(injector: Injector, public activeModal: NgbActiveModal) {
     super(injector);
     this.addTaskForm = this.formBuilder.group({
@@ -37,15 +38,42 @@ export class AddTaskComponent extends BasePage implements OnInit {
     }
   }
 
+  // Function called when focus is shifted from description feild
+  async onDescriptionUpdate($event) {
+    console.log($event.target.value);
+    const value = $event.target.value;
+    this.getTagsforDescription(value);
+  }
+
+  // Function for getting the tags for description and populating them
+  async getTagsforDescription(description: string) {
+    this.isInProcess = true;
+    const res = await this.network.getTags(description);
+    if (res.enitityRecognitionResult?.hasValue) {
+      const tags = res.enitityRecognitionResult?.value;
+      console.log(tags);
+      if (tags.length > 0) {
+        tags.forEach((element: any) => {
+          let value = this.addTaskForm.controls['taskTags'].value;
+          value += element.text + ', ';
+          this.addTaskForm.controls['taskTags'].setValue(value);
+        });
+      }
+    }
+    this.isInProcess = false;
+  }
+
   // Function that calls the API for adding or editing a task and displays appropriate Messages.
   async save() {
     if (!this.addTaskForm.valid) {
       this.utility.presentFailureAlert('Please Fill All Fields !', true);
       return;
     }
+    this.isInProcess = true;
     if (this.taskID) {
       const formValue = this.addTaskForm.value;
       const res = await this.network.updateTask(this.taskID, formValue);
+      this.isInProcess = false;
       this.activeModal.close({
         task_id: this.taskID,
       });
@@ -53,7 +81,7 @@ export class AddTaskComponent extends BasePage implements OnInit {
     } else {
       const formValue = this.addTaskForm.value;
       const res = await this.network.addTask(formValue);
-      console.log(res);
+      this.isInProcess = false;
       if (res && res.data) {
         this.activeModal.close({
           task_id: res.data,
