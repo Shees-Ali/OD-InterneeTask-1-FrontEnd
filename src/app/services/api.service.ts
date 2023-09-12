@@ -8,7 +8,7 @@ export class ApiService {
   url: string;
 
   constructor(public http: HttpClient) {
-    this.url = 'https://localhost:7271/api';
+    this.url = 'https://069b-111-68-110-30.ngrok-free.app/api';
   }
 
   /* Main functions for making API calls 
